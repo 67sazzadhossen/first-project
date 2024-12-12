@@ -5,7 +5,6 @@ import {
   Student,
   UserName,
 } from './student.interface'; // Import the Student interface
-import validator from 'validator';
 
 // Define the schema for the Guardian type
 const guardianSchema = new Schema<Guardian>({
@@ -41,26 +40,13 @@ const userNameSchema = new Schema<UserName>({
     type: String,
     trim: true,
     required: [true, 'First name is required'],
-    validate: {
-      validator: function (value: string) {
-        const firstNameStr =
-          value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-        return firstNameStr === value;
-      },
-      message: '{VALUE} is not in capitalize format',
-    },
   },
   middleName: {
     type: String,
-    required: [false, 'Middle name is optional'], // Optional, no error if missing
   },
   lastName: {
     type: String,
     required: [true, 'Last name is required'],
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: '{VALUE} is not valid',
-    },
   },
 });
 
